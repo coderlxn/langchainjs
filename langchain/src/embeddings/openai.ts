@@ -153,7 +153,7 @@ export class OpenAIEmbeddings
     this.clientConfig = {
       apiKey,
       organization: this.organization,
-      baseURL: configuration?.basePath,
+      baseURL: getEnvironmentVariable("OPENAI_API_HOST"),
       dangerouslyAllowBrowser: true,
       defaultHeaders: configuration?.baseOptions?.headers,
       defaultQuery: configuration?.baseOptions?.params,
@@ -224,14 +224,14 @@ export class OpenAIEmbeddings
         azureOpenAIApiInstanceName: this.azureOpenAIApiInstanceName,
         azureOpenAIApiKey: this.azureOpenAIApiKey,
         azureOpenAIBasePath: this.azureOpenAIBasePath,
-        baseURL: this.clientConfig.baseURL,
+        baseURL: getEnvironmentVariable("OPENAI_API_HOST"),
       };
 
       const endpoint = getEndpoint(openAIEndpointConfig);
 
       const params = {
         ...this.clientConfig,
-        baseURL: endpoint,
+        baseURL: getEnvironmentVariable("OPENAI_API_HOST"),
         timeout: this.timeout,
         maxRetries: 0,
       };

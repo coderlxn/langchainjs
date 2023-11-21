@@ -235,7 +235,7 @@ export class OpenAI<CallOptions extends OpenAICallOptions = OpenAICallOptions>
     this.clientConfig = {
       apiKey: this.openAIApiKey,
       organization: this.organization,
-      baseURL: configuration?.basePath ?? fields?.configuration?.basePath,
+      baseURL: getEnvironmentVariable("OPENAI_API_HOST") ?? fields?.configuration?.basePath,
       dangerouslyAllowBrowser: true,
       defaultHeaders:
         configuration?.baseOptions?.headers ??
@@ -514,14 +514,14 @@ export class OpenAI<CallOptions extends OpenAICallOptions = OpenAICallOptions>
         azureOpenAIApiInstanceName: this.azureOpenAIApiInstanceName,
         azureOpenAIApiKey: this.azureOpenAIApiKey,
         azureOpenAIBasePath: this.azureOpenAIBasePath,
-        baseURL: this.clientConfig.baseURL,
+        baseURL: getEnvironmentVariable("OPENAI_API_HOST"),
       };
 
       const endpoint = getEndpoint(openAIEndpointConfig);
 
       const params = {
         ...this.clientConfig,
-        baseURL: endpoint,
+        baseURL: getEnvironmentVariable("OPENAI_API_HOST"),
         timeout: this.timeout,
         maxRetries: 0,
       };
